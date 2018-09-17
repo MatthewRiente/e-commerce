@@ -1,0 +1,39 @@
+.main__container {
+    height: 350px;
+    width: 100vw;
+    background-color: #eee;
+
+    &__content1 {
+        position: relative;
+        height: 100%;
+        width: 100vw;
+        top: 0px;
+        text-align: center;
+
+        &__text {
+            position: relative;
+            width: 500px;
+            left: 20%;
+            top: 125px;
+
+            > h2 {
+                font-size: 35px;
+                padding: 5px;
+            }
+
+            > p {
+                padding: 5px;
+                font-size : 30px;
+            }
+        }
+
+        &__bg {
+            position: absolute;
+            right: 0px;
+            top: 0;
+            height: 100%;
+            width: 420px;;
+        }
+    
+    }
+}

@@ -1,0 +1,48 @@
+footer {
+
+    .footer__container {
+        overflow: hidden;
+        position: static;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        display: block;
+        width: 100%;
+        height: 100px;
+        background-color: #333333;
+        color: white;
+        margin: 0px auto;
+
+
+        &__head1 {
+            position: relative;
+            display: inline-block;
+            padding-top: 30px;
+            left: 25px;
+            font-size: 40px;
+        }
+
+        &__logo {
+            filter: greyscale(100%);
+            top: 10px;
+            left: 45%;
+            position: absolute;
+            height: 100px;
+            width: 80px;
+            animation: logoAnim 5s infinite;
+        }
+
+        &__nav {
+            position: relative;
+            width: 20%;
+            top: -30px;
+            left: 85vw;
+
+            &__link {
+                font-size: 18px;
+                float: left;
+                padding: 0px 20px;
+            }
+        }
+    }
+}
