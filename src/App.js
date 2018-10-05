@@ -1,13 +1,97 @@
 import React from 'react';
 import './css/index.scss';
-import Home from './Home';
+import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
-import Container from './Container';
-import Contact_Container from './Contact_Container';
+import Products from './Products';
+import Callback from './Callback/Callback';
+import Admin from './Admin';
+import SecuredRoute from './SecuredRoute';
+import Contact from './Contact';
 import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            products: [],
+            sortedProducts: [],
+            value: ''
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+      componentDidMount() {
+        fetch('//localhost:3001/products')
+          .then(response => response.json())
+          .then(data => {
+              this.setState({
+                products: data,
+                })
+            });
+      }
+
+      handleSubmit(event) {
+        event.preventDefault();
+      }
+
+      sortByPriceHi(productA, productB) {
+        if (productA.price < productB.price) {
+            return -1;
+          }
+          if (productA.price > productB.price) {
+            return 1;
+          }
+          return 0;
+    }
+
+     sortByPriceLo(productA, productB) {
+        if (productB.price < productA.price) {
+            return -1;
+          }
+          if (productB.price > productA.price) {
+            return 1;
+          }
+          return 0;
+    }
+
+    // works but has a bug where it does not render on load and shows the wrong array
+    // (where the first card is always the mona lisa)
+    // at first when rendered, but when rendered another time it is fine??
+
+      handleChange(event) {
+
+        let sortedProductsHi = this.state.products.slice().sort(this.sortByPriceHi);
+        let sortedProductsLo = this.state.products.slice().sort(this.sortByPriceLo);
+
+            this.setState({value: event.target.value});
+            
+            if (this.state.value === "high") {
+                this.setState(() => {
+                    return {
+                     sortedProducts: sortedProductsHi
+                    }
+                });
+            }
+            if (this.state.value === "low") {
+                this.setState(() => {
+                    return {
+                     sortedProducts: sortedProductsLo
+                    }
+                   });
+            }
+            if (this.state.value === "none" || this.state.value === '') {
+                this.setState(() => {
+                    return {
+                     sortedProducts: this.state.products.slice()
+                    }
+                });
+            }
+      }
+
+
     render() {
       return (
         <div>
@@ -16,9 +100,11 @@ class App extends React.Component {
             </header>
             <main>
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/Container' component={Container}/>
-                    <Route path='/Contact_Container' component={Contact_Container}/>
+                    <Route exact path='/' component={Main} />
+                    <Route path='/Products' render={() => <Products sortedProducts={this.state.sortedProducts} products={this.state.products} handleChange={(event) => this.handleChange(event)} />} />
+                    <Route path='/Contact' component={Contact}/>
+                    <Route exact path='/Callback' component={Callback} />
+                    <SecuredRoute exact path='/Admin' component={Admin} products={this.state.products}/>
                 </Switch>
             </main>
             <footer>

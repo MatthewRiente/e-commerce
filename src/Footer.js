@@ -10,8 +10,8 @@ class Footer extends Component {
         <div className="footer__container__nav">
         <nav>
             <ul>
-                <li className="footer__container__nav__link">Home</li>
-                <li className="footer__container__nav__link">Products</li>
+                <li className="footer__container__nav__link">example</li>
+                <li className="footer__container__nav__link">example</li>
             </ul>
         </nav>
         </div>
