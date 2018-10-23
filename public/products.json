@@ -74,3 +74,9 @@
     "productImageCaption" : "Georges-Pierre Seurat",
     "availability" : "In Stock"
 }
+
+fname,
+lname,
+email,
+company,
+comment

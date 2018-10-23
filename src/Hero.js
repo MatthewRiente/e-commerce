@@ -17,7 +17,7 @@ export default class Hero extends Component {
       slidesToShow: 3,
       slidesToScroll: 1,
       autoplay: true,
-      speed: 3000,
+      speed: 3000, // 3 seconds 
       autoplaySpeed: 2000,
       cssEase: "ease",
       pauseOnHover: false
@@ -25,9 +25,6 @@ export default class Hero extends Component {
 
     return (
       <div className="hero">
-      <div className="hero__current">
-
-      </div>
         <Slider {...settings}>
           <div className="slideItem">
             <img className="art" src={art1} alt="The Starry Night, June 1889" />

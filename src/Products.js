@@ -17,7 +17,7 @@ export default class Products extends Component {
             <div>
                 <Hero />
                 <div className='productCard'>
-                    <label> Pick your price range:
+                    <label> Pick your price range: 
                         <select className='productCard__dropdown' defaultValue="none" onChange={this.props.handleChange}>
                             <option value="none"> None </option>
                             <option value="high"> High </option>
@@ -25,7 +25,7 @@ export default class Products extends Component {
                         </select>
                     </label>
                     {products.map( product =>
-                    <div className="productCard__container" key={product._id}>
+                    <div className="productCard__container" key={product.prod_id}>
                         <img className="productCard__container__img" key={product._id} src={product.productImage} alt={product.productImageCaption} />
                         <h4 className="productCard__container__head">{product.author}, {product.title}</h4> 
                         <p className="productCard__container__desc"> {product.description} </p>

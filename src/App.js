@@ -24,12 +24,12 @@ class App extends React.Component {
       }
 
       componentDidMount() {
-        fetch('//localhost:3001/products')
-          .then(response => response.json())
+        fetch('http://localhost:8080/products')
+          .then(res => res.json())
           .then(data => {
               this.setState({
                 products: data,
-                })
+                }, () => console.log(this.state.products))
             });
       }
 
@@ -47,7 +47,7 @@ class App extends React.Component {
           return 0;
     }
 
-     sortByPriceLo(productA, productB) {
+      sortByPriceLo(productA, productB) {
         if (productB.price < productA.price) {
             return -1;
           }

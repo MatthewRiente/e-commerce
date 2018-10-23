@@ -6,6 +6,8 @@ const Update = (props) => {
             return (
               <ReactCSSTransitionGroup 
               transitionName={props.transitionName}
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
               >
                 <div className="updateModal">
                   {props.children}
@@ -13,7 +15,10 @@ const Update = (props) => {
               </ReactCSSTransitionGroup>
             );
         } else {
-            return <ReactCSSTransitionGroup transitionName={props.transitionName} />;
+            return <ReactCSSTransitionGroup 
+            transitionName={props.transitionName}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300} />;
         }
 };
 
