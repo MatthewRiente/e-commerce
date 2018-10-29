@@ -114,7 +114,6 @@ app.post('/products', checkJwt, (req, res) =>{
         if (error) {
             throw error
         }
-        res.redirect('http://localhost:3000/Admin');
         res.sendStatus(200);
         res.end(JSON.stringify(results));
     });
