@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from './Modal';
 import Update from './Update';
 import './css/index.scss';
+import auth0Client from './Auth/Auth';
 
 export default class Admin extends Component {
     constructor(props) {
@@ -37,14 +38,16 @@ export default class Admin extends Component {
          });
     }
 
-    deleteData(_id) {
-      fetch('http://localhost:8080/products/' + _id, {
+    deleteData(prod_id) {
+      fetch(`http://localhost:8080/products/${prod_id}`, {
           method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${auth0Client.getIdToken()}`
+          }
       }).then((res) => {
         if (res.json === 200) {
-           console.log("succsessss");
+           console.log(`ID:${prod_id} deleted.`);
         }
-        window.location.reload();
       }).catch((res, error) => {res.status(400).send(error)});
     }
 
@@ -64,14 +67,37 @@ export default class Admin extends Component {
             method: "PUT",
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth0Client.getIdToken()}`
             },
             body: JSON.stringify(newUpdate)
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(e => console.log(e))
+        .then(response => response.json())
     };
+
+    addData = (e, data) => {
+        const addedData = {
+            title: document.getElementById("title").value,
+            author: document.getElementById("author").value,
+            description: document.getElementById("description").value,
+            price: document.getElementById("price").value,
+            productImage: document.getElementById("productImage").value,
+            prodType: document.getElementById("prodType").value,
+            productImageCaption: document.getElementById("productImageCaption").value,
+            availability: document.getElementById("availability").value
+        };
+
+        fetch(`http://localhost:8080/products/`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth0Client.getIdToken()}`
+            },
+            body: JSON.stringify(addedData)
+        })
+        .then(response => response.json())
+    }
 
     render() {
         const map =                 
@@ -103,8 +129,8 @@ export default class Admin extends Component {
                                             <input type="text" id="description" defaultValue={product.description} name="description" />
                                         </div>
                                         <div>
-                                            <label htmlFor='productType'> Type</label> 
-                                            <input type="text" id="prodType" defaultValue={product.prodType} name="productType" />
+                                            <label htmlFor='prodType'> Type</label> 
+                                            <input type="text" id="prodType" defaultValue={product.prodType} name="prodType" />
                                         </div>
                                         <div>
                                             <label htmlFor='productImage'> Image </label> 
@@ -137,7 +163,7 @@ export default class Admin extends Component {
                     </div>
                 </div>
                 <Modal show={this.state.isOpen}>
-                    <form name="modal__form" method="POST" action="http://localhost:8080/products" className="form">
+                    <form  onSubmit={(e) => this.addData(e)} className="form">
                         <div className="modal__form__container">
                             <div className="modal__form__container__content">
                                 <div>
@@ -157,8 +183,8 @@ export default class Admin extends Component {
                                     <input type="text" id="description" name="description" />
                                 </div>
                                 <div>
-                                    <label htmlFor='productType'> Type</label> 
-                                    <input type="text" id="prodType" name="productType" />
+                                    <label htmlFor='prodType'> Type</label> 
+                                    <input type="text" id="prodType" name="prodType" />
                                 </div>
                                 <div>
                                     <label htmlFor='productImage'> Image </label> 
@@ -182,5 +208,4 @@ export default class Admin extends Component {
             </div>
         );
     }
-
 }

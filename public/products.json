@@ -59,7 +59,7 @@
     "description" : "The painting depict the construction of the Tower of Babel, which, according to the Book of Genesis in the Bible, was built by a unified, monolingual humanity as a mark of their achievement and to prevent them from scattering",
     "price" : 242.0,
     "productType" : "painting",
-    "productImage" : "/product_images/The_Tower_Of_Babel_by_Pieter_Bruegel_The_Elder_W1.jpg",
+    "productImage" : "./product_images/The_Tower_Of_Babel_by_Pieter_Bruegel_The_Elder_W1.jpg",
     "productImageCaption" : "Pieter Bruegel the Elder",
     "availability" : "In Stock"
 }

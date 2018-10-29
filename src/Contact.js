@@ -3,22 +3,6 @@ import Hero from './Hero';
 import './css/index.scss';
 
 class Contact extends Component {
-
-    // use a second fetch to use method: get, its not the same as a get request so it should be fine.
-
-    // validateForm() {
-    //     const fname = document.forms["myForm"]["firstName"].value;
-    //     const lname = document.forms["myForm"]["lastName"].value;
-    //     const email = document.forms["myForm"]["email"].value;
-    //     if (fname === "" || lname ==="") {
-    //         alert("Name must be filled out");
-    //         return false;
-    //     } else if (email === "") {
-    //         alert("Email must be filled out");
-    //         return false;
-    //     }
-    // }
-
   render() {
 
     return (
@@ -27,7 +11,7 @@ class Contact extends Component {
                 <Hero />
             </section>
             <section className="form">
-                <form name="myForm" method="POST" action="http://localhost:3001/users" className="form">
+                <form name="myForm" method="POST" action="http://localhost:8080/contact_data" className="form">
                     <div className="form__container">
                         <div className="form__container__contactForm">
                             <div>
@@ -50,7 +34,7 @@ class Contact extends Component {
                     </div>
                     <div className="form__container__contactExtras">
                         <div className="form__container__contactExtras--flex">
-                            <textarea htmlFor='comment' placeholder="Please enter your comment or question here..." rows="20" cols="75"></textarea>
+                            <textarea htmlFor='comment' name="comment" placeholder="Please enter your comment or question here..." rows="20" cols="75"></textarea>
                             <input type="submit" value="Submit" />
                         </div>
                     </div>
