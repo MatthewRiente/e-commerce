@@ -122,18 +122,15 @@ app.post('/users/', (req, res) => {
 app.put('/products/:id', (req, res) => {
     const id = req.params.id;
     let body = _.pick(req.body, ["_id", "title", "author", "description", "price", "productType", "productImage", "productImageCaption",  "availability"]);    
-    
     Prod.findByIdAndUpdate(id,
     { $set: body }, { new: true })
-    .then (
-        (product) => {
-            if (!product) {
-                res.status(404).send("unable to find id");
-            }
-            res.send(product)
-            console.log(product)
+    .then ((product) => {
+        if (!product) {
+            res.status(404).send("unable to find id");
         }
-    ).catch(error => {res.status(400).send(error)});
+        res.send(product)
+        console.log(product)
+    }).catch(error => {res.status(400).send(error)});
 });
 
 app.listen(3001);
