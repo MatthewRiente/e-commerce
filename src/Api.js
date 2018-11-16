@@ -6,9 +6,12 @@ const morgan = require('morgan');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 const app = express(); 
+const expressSanitizer = require('express-sanitizer');
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressSanitizer());
+//http protection 
 app.use(helmet());
 //logs HTTP requests
 app.use(morgan('combined'));
@@ -22,7 +25,6 @@ app.use(function (req, res, next) {
     } else {
         next();
     }
-
 });
 
 var con = sql.createConnection({
@@ -80,41 +82,40 @@ const checkJwt = jwt({
     algorithms: ['RS256']
 });
 
-//placing checkJwt in the endpoint makes sure unauthenticated users cannot access them
+// placing checkJwt in the endpoint makes sure unauthenticated users cannot execute them
 app.post('/contact_data', (req, res) => {
     const contact = {
-        first_name: req.body.fname,
-        last_name: req.body.lname,
-        email: req.body.email,
-        company: req.body.company,
-        comment: req.body.comment
+        first_name: req.body.sanitized = req.sanitize(req.body.fname),
+        last_name: req.body.sanitized = req.sanitize(req.body.lname),
+        email: req.body.sanitized = req.sanitize(req.body.email),
+        company: req.body.sanitized = req.sanitize(req.body.company),
+        comment: req.body.sanitized = req.sanitize(req.body.comment)
     }
+
     con.query('INSERT INTO contact_data SET ?', contact, (error, results) => {
         if (error) {
           throw error
         }
         res.redirect('http://localhost:3000/Contact');
-        res.sendStatus(200);
         res.end(JSON.stringify(results));
       });
 })
 
 app.post('/products', checkJwt, (req, res) =>{
     const product = {
-        title: req.body.title,
-        author: req.body.author,
-        description: req.body.description,
-        price: req.body.price,
-        prodType: req.body.prodType,
-        productImage: req.body.productImage,
-        productImageCaption: req.body.productImageCaption,
-        availability: req.body.availability
+        title: req.body.sanitized = req.sanitize(req.body.title),
+        author: req.body.sanitized = req.sanitize(req.body.author),
+        description: req.body.sanitized = req.sanitize(req.body.description),
+        price: req.body.sanitized = req.sanitize(req.body.price),
+        prodType: req.body.sanitized = req.sanitize(req.body.prodType),
+        productImage: req.body.sanitized = req.sanitize(req.body.productImage),
+        productImageCaption: req.body.sanitized = req.sanitize(req.body.productImageCaption),
+        availability: req.body.sanitized = req.sanitize(req.body.availability)
     }
     con.query("INSERT INTO `products` SET ?", product, (error, results) => {
         if (error) {
             throw error
         }
-        res.sendStatus(200);
         res.end(JSON.stringify(results));
     });
 })

@@ -48,11 +48,12 @@ export default class Admin extends Component {
         if (res.json === 200) {
            console.log(`ID:${prod_id} deleted.`);
         }
-      }).catch((res, error) => {res.status(400).send(error)});
+      })
     }
 
     updateData = (e, prod_id) => {
         e.preventDefault();
+        //change to refs
         let newUpdate = {
             title: document.getElementById("title").value,
             author: document.getElementById("author").value,

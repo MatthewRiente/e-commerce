@@ -62,6 +62,7 @@ class App extends React.Component {
     // at first when rendered, but when rendered another time it is fine??
 
       handleChange(event) {
+          // one IF, set at end
 
         let sortedProductsHi = this.state.products.slice().sort(this.sortByPriceHi);
         let sortedProductsLo = this.state.products.slice().sort(this.sortByPriceLo);

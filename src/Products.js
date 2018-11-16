@@ -10,8 +10,6 @@ export default class Products extends Component {
             } else {
                 products = this.props.sortedProducts
             }
-        console.log(this.props.products)
-        console.log("currentvalue", this.props.value)
 
         return (
             <div>

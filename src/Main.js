@@ -14,7 +14,7 @@ class Main extends Component {
           <div className="main__container__content1">
             <div className="main__container__content1__text">
               <h1> Classic Culture in your hands </h1>
-              <p> Finity's goal is to serve as a classic art outlet for an average consumer </p>
+              <em> Finity's goal is to serve as a classic art outlet for an average consumer </em>
             </div>
             <img className="main__container__content1__bg" src={statue} alt="Statue of David" />
           </div>

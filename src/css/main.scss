@@ -14,16 +14,17 @@
             position: relative;
             width: 500px;
             left: 20%;
-            top: 125px;
+            top: 50px;
 
-            > h2 {
+            > h1 {
                 font-size: 35px;
-                padding: 5px;
+                padding: 40px;
             }
 
-            > p {
+            > em {
                 padding: 5px;
-                font-size : 30px;
+                font-size: 30px;
+                font-style: italic;
             }
         }
 
